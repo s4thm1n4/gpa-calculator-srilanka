@@ -5,10 +5,8 @@ import { MetadataRoute } from 'next'
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
-      userAgent: '*',
-      allow: '/',
-      disallow: '/private/', // Example: disallowing a private area
+      userAgent: '*', // This rule applies to all crawlers
+      allow: '/',      // This allows them to crawl everything on your site
     },
-    sitemap: 'https://gpa-calculator-srilanka.vercel.app/sitemap.xml', // Change to your final domain
   }
 }
