@@ -2,6 +2,27 @@
 
 import { useState, useMemo, use } from 'react';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'SLIIT GPA Calculator | Accurate & Easy to Use',
+  description: 'The most accurate SLIIT GPA Calculator. Instantly calculate your GPA based on the official SLIIT grading system (A+, A, A-, etc.) to track your academic performance.',
+  keywords: [
+    'SLIIT GPA Calculator',
+    'SLIIT GPA',
+    'SLIIT CGPA Calculator',
+    'Calculate SLIIT GPA',
+    'Sri Lanka Institute of Information Technology GPA',
+  ],
+  authors: [{ name: 's4thm1n4' }],
+  openGraph: {
+    title: 'SLIIT GPA Calculator | Accurate & Easy to Use',
+    description: 'Instantly calculate your GPA with the most accurate tool for SLIIT students.',
+    // You can add a specific image for social sharing here
+    // images: ['/sliit-calculator-og-image.png'],
+  },
+};
+
 
 // SLIIT Grade Scale
 const sliitGradeScale = [
