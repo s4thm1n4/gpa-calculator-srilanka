@@ -1,35 +1,28 @@
 // app/university-gpa-calculator/[slug]/page.tsx
 
 import type { Metadata } from 'next';
-// Update the import to your new filename
-import CalculatorUI from './SLIIT-calculator-ui'; 
+import CalculatorUI from './SLIIT-calculator-ui'; // Your client component
 
-// This file is the Server Component for handling metadata
-export const metadata: Metadata = {
-  title: 'SLIIT GPA Calculator | Accurate & Easy to Use',
-  description: 'The most accurate SLIIT GPA Calculator. Instantly calculate your GPA based on the official SLIIT grading system (A+, A, A-, etc.) to track your academic performance.',
-  keywords: [
-    'SLIIT GPA Calculator',
-    'SLIIT GPA',
-    'SLIIT CGPA Calculator',
-    'Calculate SLIIT GPA',
-    'Sri Lanka Institute of Information Technology GPA',
-  ],
-  authors: [{ name: 's4thm1n4' }],
-  openGraph: {
-    title: 'SLIIT GPA Calculator | Accurate & Easy to Use',
-    description: 'Instantly calculate your GPA with the most accurate tool for SLIIT students.',
-  },
-};
+// The metadata can be dynamic or static. Let's make it dynamic.
+export async function generateMetadata({ params: paramsPromise }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await paramsPromise; // Await the promise here
+  const title = `${slug.toUpperCase()} GPA Calculator | Accurate & Easy to Use`;
+  const description = `The most accurate ${slug.toUpperCase()} GPA Calculator. Instantly calculate your GPA based on the official Sri Lankan university grading system.`;
 
-// --- THIS IS THE FIX ---
-// We make the PageProps type more complete to match what Next.js expects.
-type PageProps = {
-  params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
+  return {
+    title,
+    description,
+    keywords: [`${slug} GPA Calculator`, `${slug} CGPA`, 'GPA calculator Sri Lanka'],
+    authors: [{ name: 's4thm1n4' }],
+    openGraph: { title, description },
+  };
+}
 
-// This simple page component passes the slug down to the client component.
-export default function Page({ params }: PageProps) {
-  return <CalculatorUI slug={params.slug} />;
+// This page now correctly handles the params promise
+export default async function Page({ params: paramsPromise }: { params: Promise<{ slug: string }> }) {
+  // We 'await' the promise to get the simple object
+  const { slug } = await paramsPromise;
+
+  // We pass the resolved 'slug' string as a simple prop to the client component
+  return <CalculatorUI slug={slug} />;
 }

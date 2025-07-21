@@ -1,4 +1,4 @@
-// app/university-gpa-calculator/[slug]/calculator-ui.tsx
+// app/university-gpa-calculator/[slug]/SLIIT-calculator-ui.tsx
 
 'use client';
 
@@ -18,6 +18,7 @@ const sliitGradeScale = [
 
 type Course = { id: number; name: string; credits: number; grade: string; };
 
+// The props type is now very simple: it just expects a string.
 type CalculatorUIProps = {
   slug: string;
 };
