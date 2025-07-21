@@ -1,12 +1,9 @@
-// app/university-gpa-calculator/[slug]/page.tsx
-
 'use client';
 
-// The 'FC' (Functional Component) type is added to the import
-import { useState, useMemo, FC } from 'react';
+import { useState, useMemo, use } from 'react';
 import Link from 'next/link';
 
-// SLIIT Grade Scale (No changes here)
+// SLIIT Grade Scale
 const sliitGradeScale = [
   { grade: "A+", gpa: 4.0 }, { grade: "A", gpa: 4.0 },
   { grade: "A-", gpa: 3.7 }, { grade: "B+", gpa: 3.3 },
@@ -16,7 +13,6 @@ const sliitGradeScale = [
   { grade: "D", gpa: 1.0 }, { grade: "E", gpa: 0.0 },
 ];
 
-// Type definitions (No changes here)
 type Course = {
   id: number;
   name: string;
@@ -24,14 +20,14 @@ type Course = {
   grade: string;
 };
 
-type PageProps = {
-  params: { slug: string };
-};
+export default function CalculatorPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  // FIXED: Use React's 'use' hook to unwrap the params Promise in client component
+  const { slug } = use(params);
 
-// --- THIS IS THE FIX ---
-// We now define our page as a constant with the type React.FC<PageProps>
-const CalculatorPage: FC<PageProps> = ({ params }) => {
-  // All the state and functions inside the component remain exactly the same
   const [courses, setCourses] = useState<Course[]>([
     { id: 1, name: 'Introduction to Programming', credits: 4, grade: 'A+' }
   ]);
@@ -59,13 +55,12 @@ const CalculatorPage: FC<PageProps> = ({ params }) => {
     return (totalPoints / totalCredits);
   }, [courses]);
 
-  // The entire JSX return also remains the same
   return (
     <main className="p-4 sm:p-8 min-h-screen bg-gray-900 text-white">
       <div className="max-w-5xl mx-auto">
         <header className="text-center mb-8">
           <h1 className="text-4xl font-bold text-purple-400 uppercase">
-            {params.slug} GPA Calculator
+            {slug} GPA Calculator
           </h1>
           <Link href="/" className="text-blue-400 hover:underline mt-2 inline-block">
             &larr; Back to all universities
@@ -80,12 +75,14 @@ const CalculatorPage: FC<PageProps> = ({ params }) => {
                   className="absolute top-2 right-2 text-gray-500 hover:text-red-400 font-bold text-2xl transition-colors">
                   &times;
                 </button>
+                
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-400 mb-1">Module Name</label>
                   <input type="text" placeholder="E.g., Database Management" value={course.name}
                     onChange={e => updateCourse(course.id, 'name', e.target.value)}
                     className="w-full bg-gray-700 p-2 rounded-md" />
                 </div>
+
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-400 mb-1">Credits</label>
@@ -104,6 +101,7 @@ const CalculatorPage: FC<PageProps> = ({ params }) => {
               </div>
             ))}
           </div>
+
           <div className="text-center">
             <button onClick={addCourseRow} className="mt-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2 px-6 rounded-lg transition-transform hover:scale-105">
               + Add Module
@@ -124,7 +122,4 @@ const CalculatorPage: FC<PageProps> = ({ params }) => {
       </div>
     </main>
   );
-};
-
-// We now export the component at the end
-export default CalculatorPage;
+}
