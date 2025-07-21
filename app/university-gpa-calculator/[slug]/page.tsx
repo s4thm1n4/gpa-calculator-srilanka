@@ -1,3 +1,5 @@
+// app/university-gpa-calculator/[slug]/page.tsx
+
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -13,6 +15,7 @@ const sliitGradeScale = [
   { grade: "D", gpa: 1.0 }, { grade: "E", gpa: 0.0 },
 ];
 
+// This defines the structure for a single course row
 type Course = {
   id: number;
   name: string;
@@ -20,11 +23,20 @@ type Course = {
   grade: string;
 };
 
-export default function CalculatorPage({ params }: { params: { slug: string } }) {
+// --- THIS IS THE FIX ---
+// We create a proper type for the page's props
+type PageProps = {
+  params: { slug: string };
+};
+// --- END OF FIX ---
+
+export default function CalculatorPage({ params }: PageProps) { // We use the PageProps type here
+  // State to hold the list of courses
   const [courses, setCourses] = useState<Course[]>([
     { id: 1, name: 'Introduction to Programming', credits: 4, grade: 'A+' }
   ]);
 
+  // The rest of the functions (addCourseRow, updateCourse, removeCourseRow) remain the same.
   const addCourseRow = () => {
     setCourses([...courses, { id: Date.now(), name: '', credits: 3, grade: 'A+' }]);
   };
@@ -37,6 +49,7 @@ export default function CalculatorPage({ params }: { params: { slug: string } })
     setCourses(courses.filter(c => c.id !== id));
   };
 
+  // The GPA calculation logic also remains the same.
   const calculatedGpa = useMemo(() => {
     const gradeMap = new Map(sliitGradeScale.map(item => [item.grade, item.gpa]));
     const totalPoints = courses.reduce((acc, course) => {
@@ -48,6 +61,7 @@ export default function CalculatorPage({ params }: { params: { slug: string } })
     return (totalPoints / totalCredits);
   }, [courses]);
 
+  // The JSX layout also remains the same.
   return (
     <main className="p-4 sm:p-8 min-h-screen bg-gray-900 text-white">
       <div className="max-w-5xl mx-auto">
@@ -68,14 +82,12 @@ export default function CalculatorPage({ params }: { params: { slug: string } })
                   className="absolute top-2 right-2 text-gray-500 hover:text-red-400 font-bold text-2xl transition-colors">
                   &times;
                 </button>
-                
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-400 mb-1">Module Name</label>
                   <input type="text" placeholder="E.g., Database Management" value={course.name}
                     onChange={e => updateCourse(course.id, 'name', e.target.value)}
                     className="w-full bg-gray-700 p-2 rounded-md" />
                 </div>
-
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-400 mb-1">Credits</label>
@@ -94,7 +106,6 @@ export default function CalculatorPage({ params }: { params: { slug: string } })
               </div>
             ))}
           </div>
-
           <div className="text-center">
             <button onClick={addCourseRow} className="mt-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2 px-6 rounded-lg transition-transform hover:scale-105">
               + Add Module
@@ -110,7 +121,6 @@ export default function CalculatorPage({ params }: { params: { slug: string } })
           <p className={`mt-2 text-lg font-semibold ${calculatedGpa >= 2.0 ? 'text-green-400' : 'text-red-400'}`}>
             {calculatedGpa >= 2.0 ? 'Status: Pass' : 'Status: Below Passing Grade'}
           </p>
-          {/* FIXED: Escaped single quotes around 'C' using &apos; HTML entity to resolve react/no-unescaped-entities ESLint error */}
           <p className="text-xs text-gray-500 mt-1">(A &apos;C&apos; grade / 2.00 GPA is required to pass)</p>
         </div>
       </div>
