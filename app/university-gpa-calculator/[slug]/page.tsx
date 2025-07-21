@@ -110,7 +110,7 @@ export default function CalculatorPage({ params }: { params: { slug: string } })
           <p className={`mt-2 text-lg font-semibold ${calculatedGpa >= 2.0 ? 'text-green-400' : 'text-red-400'}`}>
             {calculatedGpa >= 2.0 ? 'Status: Pass' : 'Status: Below Passing Grade'}
           </p>
-          {/* This is the fixed line */}
+          {/* FIXED: Escaped single quotes around 'C' using &apos; HTML entity to resolve react/no-unescaped-entities ESLint error */}
           <p className="text-xs text-gray-500 mt-1">(A &apos;C&apos; grade / 2.00 GPA is required to pass)</p>
         </div>
       </div>
