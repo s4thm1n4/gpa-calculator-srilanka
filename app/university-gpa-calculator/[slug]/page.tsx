@@ -2,10 +2,11 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+// The 'FC' (Functional Component) type is added to the import
+import { useState, useMemo, FC } from 'react';
 import Link from 'next/link';
 
-// SLIIT Grade Scale
+// SLIIT Grade Scale (No changes here)
 const sliitGradeScale = [
   { grade: "A+", gpa: 4.0 }, { grade: "A", gpa: 4.0 },
   { grade: "A-", gpa: 3.7 }, { grade: "B+", gpa: 3.3 },
@@ -15,7 +16,7 @@ const sliitGradeScale = [
   { grade: "D", gpa: 1.0 }, { grade: "E", gpa: 0.0 },
 ];
 
-// This defines the structure for a single course row
+// Type definitions (No changes here)
 type Course = {
   id: number;
   name: string;
@@ -23,20 +24,18 @@ type Course = {
   grade: string;
 };
 
-// --- THIS IS THE FIX ---
-// We create a proper type for the page's props
 type PageProps = {
   params: { slug: string };
 };
-// --- END OF FIX ---
 
-export default function CalculatorPage({ params }: PageProps) { // We use the PageProps type here
-  // State to hold the list of courses
+// --- THIS IS THE FIX ---
+// We now define our page as a constant with the type React.FC<PageProps>
+const CalculatorPage: FC<PageProps> = ({ params }) => {
+  // All the state and functions inside the component remain exactly the same
   const [courses, setCourses] = useState<Course[]>([
     { id: 1, name: 'Introduction to Programming', credits: 4, grade: 'A+' }
   ]);
 
-  // The rest of the functions (addCourseRow, updateCourse, removeCourseRow) remain the same.
   const addCourseRow = () => {
     setCourses([...courses, { id: Date.now(), name: '', credits: 3, grade: 'A+' }]);
   };
@@ -49,7 +48,6 @@ export default function CalculatorPage({ params }: PageProps) { // We use the Pa
     setCourses(courses.filter(c => c.id !== id));
   };
 
-  // The GPA calculation logic also remains the same.
   const calculatedGpa = useMemo(() => {
     const gradeMap = new Map(sliitGradeScale.map(item => [item.grade, item.gpa]));
     const totalPoints = courses.reduce((acc, course) => {
@@ -61,7 +59,7 @@ export default function CalculatorPage({ params }: PageProps) { // We use the Pa
     return (totalPoints / totalCredits);
   }, [courses]);
 
-  // The JSX layout also remains the same.
+  // The entire JSX return also remains the same
   return (
     <main className="p-4 sm:p-8 min-h-screen bg-gray-900 text-white">
       <div className="max-w-5xl mx-auto">
@@ -126,4 +124,7 @@ export default function CalculatorPage({ params }: PageProps) { // We use the Pa
       </div>
     </main>
   );
-}
+};
+
+// We now export the component at the end
+export default CalculatorPage;
