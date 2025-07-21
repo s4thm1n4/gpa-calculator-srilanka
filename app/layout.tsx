@@ -24,6 +24,9 @@ export const metadata: Metadata = {
     default: 'GPA Calculator Sri Lanka',
   },
   description: 'The most accurate and easy-to-use GPA and WGPA calculators for Sri Lankan university students.',
+verification: {
+    google: 'TzQ2i3TFMmJ0SpI81gb1_4bhYnI4D7H6I5Ad', // Paste your code here
+  },
 };
 
 export default function RootLayout({
