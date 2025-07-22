@@ -469,7 +469,7 @@ const CalculatorUI: FC<CalculatorUIProps> = ({ slug }) => {
                       <span className="text-green-500">✅</span>
                       Pass Requirement
                     </div>
-                    <div className="text-sm text-slate-600">Minimum "C" grade (2.0 GPA) required for graduation</div>
+                    <div className="text-sm text-slate-600">Minimum &quot;C&quot; grade (2.0 GPA) required for graduation</div>
                   </div>
                 </div>
               </div>
