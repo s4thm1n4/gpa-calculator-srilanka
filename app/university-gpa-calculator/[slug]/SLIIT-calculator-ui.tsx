@@ -632,7 +632,7 @@ const CalculatorUI: FC<CalculatorUIProps> = ({ slug }) => {
           <h3 className="text-xl font-bold text-slate-800">What is a Grade Point Average?</h3>
         </div>
         <p className="text-slate-600 leading-relaxed mb-4">
-          A Grade Point Average is a standard metric used to measure a student's academic achievement over a specific period, such as a semester or an entire degree program. Each letter grade you receive for a course corresponds to a numerical grade point.
+          A Grade Point Average is a standard metric used to measure a student &apos;'&apos;s academic achievement over a specific period, such as a semester or an entire degree program. Each letter grade you receive for a course corresponds to a numerical grade point.
         </p>
         <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-400">
           <p className="text-sm text-slate-600">
@@ -719,7 +719,7 @@ const CalculatorUI: FC<CalculatorUIProps> = ({ slug }) => {
       <div className="mt-6 flex items-center gap-2 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
         <span className="text-green-600 text-lg">✅</span>
         <p className="text-green-700 font-medium">
-          Pass Requirement: Minimum "C" grade (2.0 GPA) required for module completion
+          Pass Requirement: Minimum &quot;C&quot; grade (2.0 GPA) required for module completion
         </p>
       </div>
     </div>
