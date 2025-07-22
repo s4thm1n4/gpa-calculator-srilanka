@@ -1002,7 +1002,7 @@ const CalculatorUI: FC<CalculatorUIProps> = ({ slug }) => {
                       Pass Requirement
                     </div>
                     <div className="text-xs sm:text-sm text-slate-600">
-                      Minimum &quot;"C"&quot; grade (2.0 GPA) required. 80% attendance mandatory.
+                      Minimum &quot;"&quot;C&quot;"&quot; grade (2.0 GPA) required. 80% attendance mandatory.
                     </div>
                   </div>
                 </div>
