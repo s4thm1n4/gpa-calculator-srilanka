@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-compress: true,
+ compress: true,
   poweredByHeader: false,
   
   // Image optimization for mobile
@@ -11,9 +11,9 @@ compress: true,
   },
   
   // Enable experimental features for better mobile performance
-  experimental: {
-    optimizeCss: true,
-  }
+  // experimental: {
+  //   optimizeCss: true,
+ //  }
 };
 
 export default nextConfig;
