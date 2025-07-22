@@ -632,7 +632,7 @@ const CalculatorUI: FC<CalculatorUIProps> = ({ slug }) => {
           <h3 className="text-xl font-bold text-slate-800">What is a Grade Point Average?</h3>
         </div>
         <p className="text-slate-600 leading-relaxed mb-4">
-          A Grade Point Average is a standard metric used to measure a student &apos;'&apos;s academic achievement over a specific period, such as a semester or an entire degree program. Each letter grade you receive for a course corresponds to a numerical grade point.
+          A Grade Point Average is a standard metric used to measure students academic achievement over a specific period, such as a semester or an entire degree program. Each letter grade you receive for a course corresponds to a numerical grade point.
         </p>
         <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-400">
           <p className="text-sm text-slate-600">
