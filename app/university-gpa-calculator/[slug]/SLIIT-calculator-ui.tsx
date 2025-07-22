@@ -549,7 +549,7 @@ const CalculatorUI: FC<CalculatorUIProps> = ({ slug }) => {
                       <span className="text-green-500">✅</span>
                       Pass Requirement
                     </div>
-                    <div className="text-xs sm:text-sm text-slate-600">Minimum "C" grade (2.0 GPA) required for graduation</div>
+                    <div className="text-xs sm:text-sm text-slate-600">Minimum &quot;C&quot; grade (2.0 GPA) required for graduation</div>
                   </div>
                 </div>
               </div>
@@ -605,7 +605,8 @@ const CalculatorUI: FC<CalculatorUIProps> = ({ slug }) => {
         </div>
       </div>
       <p className="text-slate-600 leading-relaxed mb-4">
-        Understanding your Grade Point Average (GPA) is more than just a number; it's a key indicator of your academic performance at SLIIT. Your GPA plays a critical role in your eligibility for honours, scholarships, and even future employment opportunities.
+        Understanding your Grade Point Average (GPA) is more than just a number; it is a key indicator of your academic performance at SLIIT. 
+        Your GPA plays a critical role in your eligibility for honours, scholarships, and even future employment opportunities.
       </p>
       <div className="flex items-center gap-2 text-sm text-green-700 bg-green-100 px-3 py-2 rounded-lg">
         <span>💡</span>
