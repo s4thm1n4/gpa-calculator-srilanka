@@ -1020,24 +1020,225 @@ const CalculatorUI: FC<CalculatorUIProps> = ({ slug }) => {
         </div>
 
         {/* Enhanced SEO Content Section */}
+{/* Enhanced SEO Content Section */}
+<div className="mt-12 sm:mt-16 lg:mt-20">
+  
+  {/* Content Header */}
+  <div className="text-center mb-8 sm:mb-12">
+    <div className="inline-flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-full border border-blue-200 mb-4">
+      <span className="text-blue-600">📚</span>
+      <span className="text-sm font-semibold text-blue-700">Complete Guide</span>
+    </div>
+    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-4">
+      Everything You Need to Know About SLIIT GPA
+    </h2>
+    <p className="text-slate-600 max-w-3xl mx-auto text-base sm:text-lg">
+      Master your academic performance with our comprehensive guide to GPA calculations, grading systems, and academic success strategies.
+    </p>
+  </div>
+
+  {/* Main Content Cards */}
+  <div className="grid lg:grid-cols-2 gap-8 mb-12">
+    
+    {/* Introduction Card */}
+    <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-blue-100">
+      <div className="flex items-start gap-4 mb-6">
+        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0">
+          <span className="text-white text-xl">🎯</span>
+        </div>
+        <div>
+          <h3 className="text-xl font-bold text-slate-800 mb-2">Academic Journey Navigation</h3>
+          <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded"></div>
+        </div>
+      </div>
+      <p className="text-slate-600 leading-relaxed">
+        Navigating your academic journey at the Sri Lanka Institute of Information Technology (SLIIT) requires a clear understanding of your performance. Our SLIIT GPA Calculator is a vital tool designed to help you instantly calculate your Grade Point Average. By simply entering your course grades and credit points, you can get an accurate assessment of your current academic standing, track your semester GPA, and plan effectively for future scholarships and graduate programs.
+      </p>
+    </div>
+
+    {/* Performance Impact Card */}
+    <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 sm:p-8 shadow-lg border border-green-200">
+      <div className="flex items-start gap-4 mb-6">
+        <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
+          <span className="text-white text-xl">📈</span>
+        </div>
+        <div>
+          <h3 className="text-xl font-bold text-slate-800 mb-2">Academic Performance Impact</h3>
+          <div className="w-16 h-1 bg-gradient-to-r from-green-500 to-emerald-500 rounded"></div>
+        </div>
+      </div>
+      <p className="text-slate-600 leading-relaxed mb-4">
+        Understanding your Grade Point Average (GPA) is more than just a number; it's a key indicator of your academic performance at SLIIT. Your GPA plays a critical role in your eligibility for honours, scholarships, and even future employment opportunities.
+      </p>
+      <div className="flex items-center gap-2 text-sm text-green-700 bg-green-100 px-3 py-2 rounded-lg">
+        <span>💡</span>
+        <span className="font-medium">Track progress • Make informed decisions • Boost your score</span>
+      </div>
+    </div>
+  </div>
+
+  {/* Key Concepts Section */}
+  <div className="mb-12">
+    <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 text-center mb-8">
+      Key Concepts & Calculations
+    </h2>
+    
+    <div className="grid md:grid-cols-2 gap-8">
+      
+      {/* What is GPA Card */}
+      <div className="bg-white rounded-2xl p-6 shadow-lg border border-purple-100">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+            <span className="text-purple-600">🤔</span>
+          </div>
+          <h3 className="text-xl font-bold text-slate-800">What is a Grade Point Average?</h3>
+        </div>
+        <p className="text-slate-600 leading-relaxed mb-4">
+          A Grade Point Average is a standard metric used to measure a student's academic achievement over a specific period, such as a semester or an entire degree program. Each letter grade you receive for a course corresponds to a numerical grade point.
+        </p>
+        <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-400">
+          <p className="text-sm text-slate-600">
+            <strong>Key Point:</strong> GPA provides a comprehensive summary of your overall performance, making it easier for institutions and employers to assess your capabilities.
+          </p>
+        </div>
+      </div>
+
+      {/* How GPA is Calculated Card */}
+      <div className="bg-white rounded-2xl p-6 shadow-lg border border-cyan-100">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-8 h-8 bg-cyan-100 rounded-lg flex items-center justify-center">
+            <span className="text-cyan-600">🧮</span>
+          </div>
+          <h3 className="text-xl font-bold text-slate-800">How is Your GPA Calculated?</h3>
+        </div>
+        <p className="text-slate-600 leading-relaxed mb-4">
+          Calculating your GPA at SLIIT follows a straightforward formula. First, convert each letter grade to its corresponding grade point value, then multiply by credit hours.
+        </p>
+        <div className="bg-cyan-50 p-4 rounded-lg border border-cyan-200 mb-4">
+          <div className="text-center">
+            <div className="text-sm text-cyan-700 font-medium mb-2">Formula</div>
+            <div className="text-lg font-bold text-cyan-800 font-mono">
+              GPA = Σ (Grade Points × Credits) ÷ Total Credits
+            </div>
+          </div>
+        </div>
+        <p className="text-sm text-slate-600">
+          Our tool automates this entire process - just enter your grades and credits!
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Enhanced Grading Scale Table */}
+  <div className="mb-12">
+    <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-blue-100">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center">
+          <span className="text-white text-lg">📋</span>
+        </div>
+        <div>
+          <h3 className="text-xl sm:text-2xl font-bold text-slate-800">Official SLIIT Grading Scale</h3>
+          <p className="text-slate-600 text-sm mt-1">12-grade system with corresponding GPA values</p>
+        </div>
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse bg-gradient-to-r from-slate-50 to-blue-50 rounded-xl overflow-hidden">
+          <thead>
+            <tr className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+              <th className="text-left py-4 px-6 font-semibold">Grade</th>
+              <th className="text-center py-4 px-6 font-semibold">Grade Point</th>
+              <th className="text-center py-4 px-6 font-semibold">Marks Range</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { grade: "A+", gpa: "4.0", range: "90-100", color: "text-green-600" },
+              { grade: "A", gpa: "4.0", range: "80-89", color: "text-green-600" },
+              { grade: "A-", gpa: "3.7", range: "75-79", color: "text-green-500" },
+              { grade: "B+", gpa: "3.3", range: "70-74", color: "text-blue-600" },
+              { grade: "B", gpa: "3.0", range: "65-69", color: "text-blue-600" },
+              { grade: "B-", gpa: "2.7", range: "60-64", color: "text-blue-500" },
+              { grade: "C+", gpa: "2.3", range: "55-59", color: "text-yellow-600" },
+              { grade: "C", gpa: "2.0", range: "45-54", color: "text-yellow-600" },
+              { grade: "C-", gpa: "1.7", range: "40-44", color: "text-orange-500" },
+              { grade: "D+", gpa: "1.3", range: "35-39", color: "text-red-500" },
+              { grade: "D", gpa: "1.0", range: "30-34", color: "text-red-500" },
+              { grade: "E", gpa: "0.0", range: "0-29", color: "text-red-600" }
+            ].map((row, index) => (
+              <tr key={row.grade} className={`${index % 2 === 0 ? 'bg-white' : 'bg-slate-50'} hover:bg-blue-50 transition-colors`}>
+                <td className="py-3 px-6">
+                  <span className={`font-bold text-lg ${row.color}`}>{row.grade}</span>
+                </td>
+                <td className="text-center py-3 px-6 font-semibold text-slate-700">{row.gpa}</td>
+                <td className="text-center py-3 px-6 text-slate-600">{row.range}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="mt-6 flex items-center gap-2 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
+        <span className="text-green-600 text-lg">✅</span>
+        <p className="text-green-700 font-medium">
+          Pass Requirement: Minimum "C" grade (2.0 GPA) required for module completion
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* WGPA Information Card */}
+  <div className="mb-12">
+    <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 sm:p-8 shadow-lg border border-indigo-200">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center">
+          <span className="text-white text-lg">⚖️</span>
+        </div>
+        <div>
+          <h3 className="text-xl sm:text-2xl font-bold text-slate-800">Weighted GPA (WGPA) at SLIIT</h3>
+          <p className="text-slate-600 text-sm mt-1">How different academic years impact your final classification</p>
+        </div>
+      </div>
+
+      <p className="text-slate-600 leading-relaxed mb-6">
+        Beyond the standard semester GPA, SLIIT uses a Weighted Grade Point Average (WGPA) to determine final class honours. The WGPA gives different weights to your academic performance in different years of study.
+      </p>
+
+      <div className="grid sm:grid-cols-3 gap-6">
+        {[
+          { faculty: "Faculty of Computing", weights: ["1st: 0%", "2nd: 20%", "3rd: 30%", "4th: 50%"], color: "blue" },
+          { faculty: "School of Business", weights: ["1st: 10%", "2nd: 20%", "3rd: 30%", "4th: 40%"], color: "green" },
+          { faculty: "Faculty of Engineering", weights: ["1st: 10%", "2nd: 20%", "3rd: 30%", "4th: 40%"], color: "purple" }
+        ].map((item, index) => (
+          <div key={index} className="bg-white p-4 rounded-xl border border-slate-200">
+            <h4 className={`font-bold mb-3 text-${item.color}-600`}>{item.faculty}</h4>
+            <div className="space-y-2">
+              {item.weights.map((weight, i) => (
+                <div key={i} className="flex justify-between text-sm">
+                  <span className="text-slate-600">{weight.split(':')[0]} Year</span>
+                  <span className={`font-semibold text-${item.color}-600`}>{weight.split(':')[1]}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-6 p-4 bg-white rounded-lg border border-indigo-200">
+        <p className="text-sm text-slate-600">
+          <strong>Important:</strong> This system emphasizes sustained academic improvement and rewards strong performance in higher-level courses. Our tool helps you calculate your unweighted GPA, which forms the foundation for WGPA calculations.
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+</div>
 
         {/* Enhanced SEO Content Section */}
         <div className="mt-12 sm:mt-16 lg:mt-20">
           
-          {/* Content Header */}
-          <div className="text-center mb-8 sm:mb-12">
-            <div className="inline-flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-full border border-blue-200 mb-4">
-              <span className="text-blue-600">📚</span>
-              <span className="text-sm font-semibold text-blue-700">Complete Guide</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-4">
-              Everything You Need to Know About SLIIT GPA
-            </h2>
-            <p className="text-slate-600 max-w-3xl mx-auto text-base sm:text-lg">
-              Master your academic performance with our comprehensive guide to GPA calculations, grading systems, and academic success strategies.
-            </p>
-          </div>
-
+          
           {/* All 10 FAQs - No Expandable Section */}
           <div className="mb-12">
             <div className="text-center mb-8">
