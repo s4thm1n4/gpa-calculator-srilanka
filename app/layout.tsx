@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-
-
-
-
+import "./design-system.css";
+import "./components/calculator.css";
+import "./components/forms.css";
 
 
 const geistSans = Geist({
@@ -24,8 +22,8 @@ export const metadata: Metadata = {
     default: 'GPA Calculator Sri Lanka',
   },
   description: 'The most accurate and easy-to-use GPA and WGPA calculators for Sri Lankan university students.',
-verification: {
-    google: 'TzQ2i3TFMmJ0SpI81gb1_4bhYnI4D7H6I5Ad-S8aeTc', // Paste your code here
+  verification: {
+    google: 'TzQ2i3TFMmJ0SpI81gb1_4bhYnI4D7H6I5Ad-S8aeTc',
   },
 };
 
@@ -36,9 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
       </body>
     </html>

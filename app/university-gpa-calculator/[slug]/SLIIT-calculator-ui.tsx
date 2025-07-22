@@ -73,7 +73,7 @@ type CalculatorUIProps = {
   slug: string;
 };
 
-// Enhanced Circular Progress Component for GPA Meter
+// Enhanced Circular Progress Component for GPA Meter with Mobile Support
 const CircularGPAMeter: FC<{ gpa: number; size?: number }> = ({ gpa, size = 120 }) => {
   const radius = (size - 40) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -96,10 +96,10 @@ const CircularGPAMeter: FC<{ gpa: number; size?: number }> = ({ gpa, size = 120 
 
   return (
     <div className="relative flex items-center justify-center">
-      {/* Scale indicators */}
-      <div className="absolute inset-0">
+      {/* Scale indicators - hidden on very small screens */}
+      <div className="absolute inset-0 hidden sm:block">
         {[0, 1, 2, 3, 4].map(value => {
-          const angle = (value / 4) * 270 - 135; // 270 degree arc starting from bottom-left
+          const angle = (value / 4) * 270 - 135;
           const x = Math.cos((angle * Math.PI) / 180) * (radius + 15) + size / 2;
           const y = Math.sin((angle * Math.PI) / 180) * (radius + 15) + size / 2;
           return (
@@ -119,7 +119,6 @@ const CircularGPAMeter: FC<{ gpa: number; size?: number }> = ({ gpa, size = 120 
       </div>
 
       <svg width={size} height={size} className="transform -rotate-[135deg]">
-        {/* Background arc */}
         <path
           d={`M ${size/2 - radius} ${size/2} A ${radius} ${radius} 0 1 1 ${size/2 + radius * Math.cos(Math.PI * 3/4)} ${size/2 + radius * Math.sin(Math.PI * 3/4)}`}
           stroke="#e5e7eb"
@@ -127,7 +126,6 @@ const CircularGPAMeter: FC<{ gpa: number; size?: number }> = ({ gpa, size = 120 
           fill="none"
           strokeLinecap="round"
         />
-        {/* Progress arc */}
         <path
           d={`M ${size/2 - radius} ${size/2} A ${radius} ${radius} 0 1 1 ${size/2 + radius * Math.cos(Math.PI * 3/4)} ${size/2 + radius * Math.sin(Math.PI * 3/4)}`}
           stroke={getGpaColor(gpa)}
@@ -135,7 +133,7 @@ const CircularGPAMeter: FC<{ gpa: number; size?: number }> = ({ gpa, size = 120 
           strokeLinecap="round"
           fill="none"
           style={{
-            strokeDasharray: circumference * 0.75, // 270 degree arc
+            strokeDasharray: circumference * 0.75,
             strokeDashoffset: circumference * 0.75 - (progress / 100) * circumference * 0.75,
             transition: 'stroke-dashoffset 1s ease-out, stroke 0.3s ease-in-out',
           }}
@@ -143,11 +141,11 @@ const CircularGPAMeter: FC<{ gpa: number; size?: number }> = ({ gpa, size = 120 
       </svg>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <div className={`text-3xl font-bold bg-gradient-to-r ${getGpaGradient(gpa)} bg-clip-text text-transparent`}>
+        <div className={`text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r ${getGpaGradient(gpa)} bg-clip-text text-transparent`}>
           {gpa.toFixed(2)}
         </div>
         <div className="text-xs text-slate-500 mt-1 font-medium">CGPA</div>
-        <div className="text-xs text-slate-400">of 4.0</div>
+        <div className="text-xs text-slate-400 hidden sm:block">of 4.0</div>
       </div>
     </div>
   );
@@ -216,62 +214,67 @@ const CalculatorUI: FC<CalculatorUIProps> = ({ slug }) => {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50">
-      {/* Enhanced Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-600 py-16 px-4 sm:px-8">
+      {/* STEP 1 & 2: Mobile-Responsive Hero Section */}
+      <div className="bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-600 py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center">
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-md border border-white/30">
-                <span className="text-3xl">🎓</span>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-white/20 rounded-xl sm:rounded-2xl flex items-center justify-center backdrop-blur-md border border-white/30">
+                <span className="text-xl sm:text-2xl lg:text-3xl">🎓</span>
               </div>
-              <div>
-                <h1 className="text-5xl sm:text-6xl font-bold text-white uppercase tracking-wide drop-shadow-lg">
+              <div className="text-center sm:text-left">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white uppercase tracking-wide drop-shadow-lg leading-tight">
                   {slug} GPA Calculator
                 </h1>
-                <p className="text-cyan-100 text-xl mt-3 font-medium">Smart Academic Performance Calculator</p>
+                <p className="text-cyan-100 text-base sm:text-lg lg:text-xl mt-2 lg:mt-3 font-medium">
+                  Smart Academic Performance Calculator
+                </p>
               </div>
             </div>
-            <p className="text-cyan-50 max-w-4xl mx-auto text-lg leading-relaxed font-light">
+            <p className="text-cyan-50 max-w-3xl mx-auto text-sm sm:text-base lg:text-lg leading-relaxed font-light px-4 sm:px-0">
               Calculate your CGPA with precision. Track your academic progress with our intelligent calculator designed specifically for SLIIT students.
             </p>
-            <Link href="/" className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-white/20 text-white rounded-xl hover:bg-white/30 transition-all duration-300 backdrop-blur-md border border-white/30">
-              <span>←</span> Back to all universities
+            <Link href="/" className="inline-flex items-center gap-2 mt-4 sm:mt-6 px-4 sm:px-6 py-2 sm:py-3 bg-white/20 text-white text-sm sm:text-base rounded-lg sm:rounded-xl hover:bg-white/30 transition-all duration-300 backdrop-blur-md border border-white/30">
+              <span>←</span> 
+              <span className="hidden sm:inline">Back to all universities</span>
+              <span className="sm:hidden">Back</span>
             </Link>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 -mt-8 relative z-10">
-        <div className="grid lg:grid-cols-3 gap-8">
+      {/* STEP 3: Mobile-Responsive Grid Layout */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 -mt-4 sm:-mt-6 lg:-mt-8 relative z-10">
+        <div className="flex flex-col lg:grid lg:grid-cols-3 gap-6 lg:gap-8">
           
-          {/* Calculator Section - Takes 2 columns */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-blue-100">
+          {/* Calculator Section - Full width on mobile, 2 columns on desktop */}
+          <div className="lg:col-span-2 order-1">
+            <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl overflow-hidden border border-blue-100">
               
               {/* Calculator Header */}
-              <div className="bg-gradient-to-r from-slate-800 to-blue-900 p-8 text-white">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-cyan-500 rounded-xl flex items-center justify-center">
-                    <span className="text-2xl">⚡</span>
+              <div className="bg-gradient-to-r from-slate-800 to-blue-900 p-6 sm:p-8 text-white">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-cyan-500 rounded-lg sm:rounded-xl flex items-center justify-center">
+                    <span className="text-xl sm:text-2xl">⚡</span>
                   </div>
                   <div>
-                    <h2 className="text-3xl font-bold">GPA Calculator</h2>
-                    <p className="text-slate-300 mt-1">Enter your academic information below</p>
+                    <h2 className="text-2xl sm:text-3xl font-bold">GPA Calculator</h2>
+                    <p className="text-slate-300 mt-1 text-sm sm:text-base">Enter your academic information below</p>
                   </div>
                 </div>
               </div>
 
-              <div className="p-8 text-slate-800">
-                {/* Mode Selection */}
-                <div className="mb-10">
-                  <div className="flex items-center gap-3 mb-6">
+              <div className="p-4 sm:p-6 lg:p-8 text-slate-800">
+                {/* STEP 4: Mobile-Optimized Mode Selection */}
+                <div className="mb-8 sm:mb-10">
+                  <div className="flex items-center gap-3 mb-4 sm:mb-6">
                     <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
                       <span className="text-blue-600">📚</span>
                     </div>
-                    <h3 className="text-xl font-bold text-slate-700">Select Calculation Mode</h3>
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-700">Select Calculation Mode</h3>
                   </div>
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
                     {[
                       { key: 'custom', label: 'Custom', description: 'Add your own', icon: '✏️' },
                       { key: 'Y1S1N', label: 'Y1S1 New', description: 'New Syllabus', icon: '📖' },
@@ -284,31 +287,104 @@ const CalculatorUI: FC<CalculatorUIProps> = ({ slug }) => {
                       <button
                         key={modeOption.key}
                         onClick={() => switchMode(modeOption.key)}
-                        className={`p-4 rounded-xl border-2 transition-all duration-300 text-sm font-medium group hover:scale-105 ${
+                        className={`p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 transition-all duration-300 text-sm font-medium group hover:scale-105 ${
                           mode === modeOption.key
                             ? 'bg-gradient-to-br from-cyan-500 to-blue-600 border-cyan-400 text-white shadow-lg shadow-cyan-500/25'
                             : 'bg-white border-slate-200 text-slate-700 hover:bg-gradient-to-br hover:from-blue-50 hover:to-cyan-50 hover:border-blue-300 hover:shadow-md'
                         }`}
                       >
-                        <div className="text-lg mb-2">{modeOption.icon}</div>
-                        <div className="font-bold">{modeOption.label}</div>
+                        <div className="text-base sm:text-lg mb-2">{modeOption.icon}</div>
+                        <div className="font-bold text-xs sm:text-sm">{modeOption.label}</div>
                         <div className="text-xs opacity-75 mt-1">{modeOption.description}</div>
                       </button>
                     ))}
                   </div>
                 </div>
 
-                {/* Course Input Section */}
-                <div className="mb-10">
-                  <div className="flex items-center gap-3 mb-6">
+                {/* STEP 5: Responsive Table Design - Mobile Cards + Desktop Table */}
+                <div className="mb-8 sm:mb-10">
+                  <div className="flex items-center gap-3 mb-4 sm:mb-6">
                     <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
                       <span className="text-green-600">📝</span>
                     </div>
-                    <h3 className="text-xl font-bold text-slate-700">Course Information</h3>
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-700">Course Information</h3>
                   </div>
 
-                  <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
-                    <div className="overflow-x-auto">
+                  <div className="bg-slate-50 rounded-xl p-4 sm:p-6 border border-slate-200">
+                    
+                    {/* Mobile: Card Layout */}
+                    <div className="block sm:hidden space-y-4">
+                      {courses.map((course, index) => (
+                        <div key={course.id} className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
+                          <div className="flex justify-between items-center mb-3">
+                            <span className="text-sm font-medium text-slate-600">Module {index + 1}</span>
+                            <button
+                              onClick={() => removeCourseRow(course.id)}
+                              disabled={mode !== 'custom'}
+                              className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+                                mode !== 'custom' ? 'text-slate-400 cursor-not-allowed' : 'text-red-500 hover:bg-red-100'
+                              }`}
+                            >
+                              <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
+                                <circle cx="8" cy="8" r="7"></circle>
+                                <path d="M5 8h6"></path>
+                              </svg>
+                            </button>
+                          </div>
+                          
+                          <div className="space-y-3">
+                            <input
+                              type="text"
+                              placeholder={`Enter module name`}
+                              value={course.name}
+                              disabled={mode !== 'custom'}
+                              onChange={e => updateCourse(course.id, 'name', e.target.value)}
+                              className={`w-full rounded-lg border-2 px-3 py-2 text-sm transition-all duration-200 ${
+                                mode !== 'custom'
+                                  ? 'bg-slate-100 text-slate-500 border-slate-300 cursor-not-allowed'
+                                  : 'bg-white border-slate-300 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/20'
+                              }`}
+                            />
+                            
+                            <div className="grid grid-cols-2 gap-3">
+                              <div>
+                                <label className="block text-xs font-medium text-slate-600 mb-1">Credits</label>
+                                <select
+                                  value={course.credits}
+                                  disabled={mode !== 'custom'}
+                                  onChange={e => updateCourse(course.id, 'credits', Number(e.target.value))}
+                                  className={`w-full rounded-lg border-2 px-2 py-2 text-sm text-center transition-all duration-200 ${
+                                    mode !== 'custom'
+                                      ? 'bg-slate-100 text-slate-500 border-slate-300 cursor-not-allowed'
+                                      : 'bg-white border-slate-300 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/20'
+                                  }`}
+                                >
+                                  {[1, 2, 3, 4, 5, 6].map(n => (
+                                    <option key={n} value={n}>{n}</option>
+                                  ))}
+                                </select>
+                              </div>
+                              
+                              <div>
+                                <label className="block text-xs font-medium text-slate-600 mb-1">Grade</label>
+                                <select
+                                  value={course.grade}
+                                  onChange={e => updateCourse(course.id, 'grade', e.target.value)}
+                                  className="w-full rounded-lg border-2 px-2 py-2 text-sm text-center bg-white border-slate-300 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/20 transition-all duration-200"
+                                >
+                                  {sliitGradeScale.map(g => (
+                                    <option key={g.grade} value={g.grade}>{g.grade}</option>
+                                  ))}
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Desktop: Table Layout */}
+                    <div className="hidden sm:block overflow-x-auto">
                       <table className="min-w-[420px] w-full text-sm text-slate-800 border-collapse">
                         <thead>
                           <tr className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white">
@@ -385,53 +461,57 @@ const CalculatorUI: FC<CalculatorUIProps> = ({ slug }) => {
                       </table>
                     </div>
 
+                    {/* Add Module Button */}
                     {mode === 'custom' && (
                       <div className="mt-6 flex justify-center">
                         <button
                           onClick={addCourseRow}
-                          className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-xl hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 font-medium shadow-lg shadow-cyan-500/25 hover:scale-105"
+                          className="flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-sm sm:text-base rounded-lg sm:rounded-xl hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 font-medium shadow-lg shadow-cyan-500/25 hover:scale-105"
                         >
-                          <span className="text-xl">+</span>
-                          Add Module
+                          <span className="text-lg sm:text-xl">+</span>
+                          <span>Add Module</span>
                         </button>
                       </div>
                     )}
                   </div>
                 </div>
 
-                {/* Results Section */}
-                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 border border-blue-200">
+                {/* Mobile-Responsive Results Section */}
+                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl sm:rounded-2xl p-6 sm:p-8 border border-blue-200">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
                       <span className="text-purple-600">📊</span>
                     </div>
-                    <h3 className="text-xl font-bold text-slate-700">Calculation Results</h3>
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-700">Calculation Results</h3>
                   </div>
                   
-                  <div className="grid sm:grid-cols-3 gap-6 mb-8">
-                    <div className="text-center p-6 bg-white rounded-xl shadow-md border border-blue-100 hover:shadow-lg transition-shadow duration-300">
-                      <div className="text-3xl font-bold text-blue-600">{namedCourses.length}</div>
-                      <div className="text-sm text-slate-600 font-medium mt-1">Total Modules</div>
+                  {/* Mobile: Stack cards, Desktop: Grid */}
+                  <div className="flex flex-col sm:grid sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+                    <div className="text-center p-4 sm:p-6 bg-white rounded-lg sm:rounded-xl shadow-md border border-blue-100 hover:shadow-lg transition-shadow duration-300">
+                      <div className="text-2xl sm:text-3xl font-bold text-blue-600">{namedCourses.length}</div>
+                      <div className="text-xs sm:text-sm text-slate-600 font-medium mt-1">Total Modules</div>
                     </div>
-                    <div className="text-center p-6 bg-white rounded-xl shadow-md border border-blue-100 hover:shadow-lg transition-shadow duration-300">
-                      <div className="text-3xl font-bold text-green-600">{totalCredits}</div>
-                      <div className="text-sm text-slate-600 font-medium mt-1">Total Credits</div>
+                    <div className="text-center p-4 sm:p-6 bg-white rounded-lg sm:rounded-xl shadow-md border border-blue-100 hover:shadow-lg transition-shadow duration-300">
+                      <div className="text-2xl sm:text-3xl font-bold text-green-600">{totalCredits}</div>
+                      <div className="text-xs sm:text-sm text-slate-600 font-medium mt-1">Total Credits</div>
                     </div>
-                    <div className="flex items-center justify-center p-6 bg-white rounded-xl shadow-md border border-blue-100 hover:shadow-lg transition-shadow duration-300">
-                      <CircularGPAMeter gpa={calculatedGpa} size={110} />
+                    <div className="flex items-center justify-center p-4 sm:p-6 bg-white rounded-lg sm:rounded-xl shadow-md border border-blue-100 hover:shadow-lg transition-shadow duration-300">
+                      <CircularGPAMeter gpa={calculatedGpa} size={90} />
                     </div>
                   </div>
 
-                  <div className="text-center p-8 bg-white rounded-2xl border-l-4 border-cyan-500 shadow-md">
-                    <div className="text-lg text-slate-600 mb-3 font-medium">Academic Status</div>
-                    <div className={`text-3xl font-bold ${getGpaColor(calculatedGpa)} mb-3`}>
+                  <div className="text-center p-6 sm:p-8 bg-white rounded-xl sm:rounded-2xl border-l-4 border-cyan-500 shadow-md">
+                    <div className="text-base sm:text-lg text-slate-600 mb-2 sm:mb-3 font-medium">Academic Status</div>
+                    <div className={`text-xl sm:text-2xl lg:text-3xl font-bold ${getGpaColor(calculatedGpa)} mb-2 sm:mb-3`}>
                       {getGpaStatus(calculatedGpa)}
                     </div>
-                    <div className="text-sm text-slate-500 flex items-center justify-center gap-2">
+                    <div className="text-sm text-slate-500 flex items-center justify-center gap-2 flex-wrap">
                       <span className={calculatedGpa >= 2.0 ? 'text-green-600' : 'text-red-600'}>
                         {calculatedGpa >= 2.0 ? '✅' : '⚠️'}
                       </span>
-                      {calculatedGpa >= 2.0 ? 'Meeting graduation requirements' : 'Below minimum passing grade'}
+                      <span className="text-xs sm:text-sm">
+                        {calculatedGpa >= 2.0 ? 'Meeting graduation requirements' : 'Below minimum passing grade'}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -439,37 +519,37 @@ const CalculatorUI: FC<CalculatorUIProps> = ({ slug }) => {
             </div>
           </div>
 
-          {/* Grading Scale Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-blue-100 sticky top-6">
-              <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-white">
+          {/* Sidebar - Appears first on mobile */}
+          <div className="lg:col-span-1 order-2">
+            <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl overflow-hidden border border-blue-100 lg:sticky lg:top-6">
+              <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-4 sm:p-6 text-white">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
-                    <span className="text-lg">📋</span>
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                    <span className="text-base sm:text-lg">📋</span>
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold">SLIIT Grading Scale</h2>
-                    <p className="text-indigo-100 text-sm">SLIIT Official Scale</p>
+                    <h2 className="text-lg sm:text-xl font-bold">Grading Scale</h2>
+                    <p className="text-indigo-100 text-xs sm:text-sm">SLIIT Official Scale</p>
                   </div>
                 </div>
               </div>
-              <div className="p-6">
-                <div className="space-y-3">
+              <div className="p-4 sm:p-6">
+                <div className="space-y-2 sm:space-y-3">
                   {sliitGradeScale.map(grade => (
-                    <div key={grade.grade} className="flex justify-between items-center py-3 px-4 bg-gradient-to-r from-slate-50 to-blue-50 rounded-xl hover:from-slate-100 hover:to-blue-100 transition-all duration-200 border border-slate-200">
-                      <span className="font-bold text-slate-800 text-lg">{grade.grade}</span>
-                      <span className="text-slate-600 font-semibold">{grade.gpa.toFixed(1)}</span>
-                      <span className="text-sm text-slate-500 bg-white px-2 py-1 rounded-md">{grade.range}</span>
+                    <div key={grade.grade} className="flex justify-between items-center py-2 sm:py-3 px-3 sm:px-4 bg-gradient-to-r from-slate-50 to-blue-50 rounded-lg sm:rounded-xl hover:from-slate-100 hover:to-blue-100 transition-all duration-200 border border-slate-200">
+                      <span className="font-bold text-slate-800 text-base sm:text-lg">{grade.grade}</span>
+                      <span className="text-slate-600 font-semibold text-sm sm:text-base">{grade.gpa.toFixed(1)}</span>
+                      <span className="text-xs sm:text-sm text-slate-500 bg-white px-2 py-1 rounded-md">{grade.range}</span>
                     </div>
                   ))}
                 </div>
-                <div className="mt-8 p-4 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl border-2 border-cyan-200">
+                <div className="mt-6 sm:mt-8 p-3 sm:p-4 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-lg sm:rounded-xl border-2 border-cyan-200">
                   <div className="text-center">
-                    <div className="font-bold text-slate-700 mb-2 flex items-center justify-center gap-2">
+                    <div className="font-bold text-slate-700 mb-2 flex items-center justify-center gap-2 text-sm sm:text-base">
                       <span className="text-green-500">✅</span>
                       Pass Requirement
                     </div>
-                    <div className="text-sm text-slate-600">Minimum &quot;C&quot; grade (2.0 GPA) required for graduation</div>
+                    <div className="text-xs sm:text-sm text-slate-600">Minimum "C" grade (2.0 GPA) required for graduation</div>
                   </div>
                 </div>
               </div>
@@ -477,110 +557,330 @@ const CalculatorUI: FC<CalculatorUIProps> = ({ slug }) => {
           </div>
         </div>
 
-        {/* All your existing SEO content remains exactly the same */}
+     {/* Enhanced SEO Content Section */}
+<div className="mt-12 sm:mt-16 lg:mt-20">
+  
+  {/* Content Header */}
+  <div className="text-center mb-8 sm:mb-12">
+    <div className="inline-flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-full border border-blue-200 mb-4">
+      <span className="text-blue-600">📚</span>
+      <span className="text-sm font-semibold text-blue-700">Complete Guide</span>
+    </div>
+    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-4">
+      Everything You Need to Know About SLIIT GPA
+    </h2>
+    <p className="text-slate-600 max-w-3xl mx-auto text-base sm:text-lg">
+      Master your academic performance with our comprehensive guide to GPA calculations, grading systems, and academic success strategies.
+    </p>
+  </div>
 
-
-        {/* All your existing SEO content remains exactly the same */}
-        <div className="mt-16 prose prose-slate max-w-none text-slate-700 prose-headings:text-slate-800 prose-a:text-blue-600">
-          <p className="text-lg leading-relaxed">
-            Navigating your academic journey at the Sri Lanka Institute of Information Technology (SLIIT) requires a clear understanding of your performance. Our SLIIT GPA Calculator is a vital tool designed to help you instantly calculate your Grade Point Average. By simply entering your course grades and credit points, you can get an accurate assessment of your current academic standing, track your semester GPA, and plan effectively for future scholarships and graduate programs.
-          </p>
-          
-          <h2>How Does the SLIIT GPA Calculator Help Your Academic Performance?</h2>
-          <p>
-            Understanding your Grade Point Average (GPA) is more than just a number; it&apos;s a key indicator of your academic performance at SLIIT. Your GPA plays a critical role in your eligibility for honours, scholarships, and even future employment opportunities. This calculator helps you stay on top of your grades, allowing you to make informed decisions about your study habits, course load, and academic goals. By tracking your cumulative GPA, you can identify areas for improvement and take proactive steps to boost your score.
-          </p>
-
-          <h3>What is a Grade Point Average (GPA)?</h3>
-          <p>
-            A Grade Point Average is a standard metric used to measure a student&apos;s academic achievement over a specific period, such as a semester or an entire degree program. Each letter grade you receive for a course (like A+, B, or C) corresponds to a numerical grade point. The GPA is a weighted average of these points, calculated based on the number of credits each course is worth. It provides a comprehensive summary of your overall performance, making it easier for the institution and potential employers to assess your capabilities.
-          </p>
-          
-          <h3>How is Your GPA Calculated at SLIIT?</h3>
-          <p>
-            Calculating your GPA at SLIIT follows a straightforward formula. First, you need to convert the letter grade for each subject into its corresponding grade point value according to the official SLIIT grading scale. Then, for each course, you multiply this grade point by the number of credit points (or credit hours) assigned to that course. The sum of these values is then divided by the total number of credits you&apos;ve taken.
-          </p>
-          <p>The formula is: <strong>GPA = Σ (Grade Points × Course Credits) / Total Course Credits</strong></p>
-          <p>
-            This tool automates the entire process. You simply need to add your module names, select your letter grade from the dropdown menu, and input the correct credits for each. The calculator handles the conversion and computation, giving you your precise semester GPA or cumulative GPA instantly.
-          </p>
-
-          <h3>What is the Official SLIIT Grading Scale?</h3>
-          <p>
-            SLIIT uses a 12-grade system to assess student performance. Each grade has a specific grade point and corresponding marks range. The pass grade for a module is a &quot;C&quot;. Understanding this scale is essential for accurately calculating your GPA and interpreting your academic transcript.
-          </p>
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr>
-                <th className="border-b p-2">Grade</th>
-                <th className="border-b p-2">Grade Point</th>
-                <th className="border-b p-2">Marks Range</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td className="border-b p-2">A+</td><td className="border-b p-2">4.0</td><td className="border-b p-2">90-100</td></tr>
-              <tr><td className="border-b p-2">A</td><td className="border-b p-2">4.0</td><td className="border-b p-2">80-89</td></tr>
-              <tr><td className="border-b p-2">A-</td><td className="border-b p-2">3.7</td><td className="border-b p-2">75-79</td></tr>
-              <tr><td className="border-b p-2">B+</td><td className="border-b p-2">3.3</td><td className="border-b p-2">70-74</td></tr>
-              <tr><td className="border-b p-2">B</td><td className="border-b p-2">3.0</td><td className="border-b p-2">65-69</td></tr>
-              <tr><td className="border-b p-2">B-</td><td className="border-b p-2">2.7</td><td className="border-b p-2">60-64</td></tr>
-              <tr><td className="border-b p-2">C+</td><td className="border-b p-2">2.3</td><td className="border-b p-2">55-59</td></tr>
-              <tr><td className="border-b p-2">C</td><td className="border-b p-2">2.0</td><td className="border-b p-2">45-54</td></tr>
-              <tr><td className="border-b p-2">C-</td><td className="border-b p-2">1.7</td><td className="border-b p-2">40-44</td></tr>
-              <tr><td className="border-b p-2">D+</td><td className="border-b p-2">1.3</td><td className="border-b p-2">35-39</td></tr>
-              <tr><td className="border-b p-2">D</td><td className="border-b p-2">1.0</td><td className="border-b p-2">30-34</td></tr>
-              <tr><td className="border-b p-2">E</td><td className="border-b p-2">0.0</td><td className="border-b p-2">0-29</td></tr>
-            </tbody>
-          </table>
-
-          <h3>What is a Weighted GPA (WGPA) at SLIIT?</h3>
-          <p>
-            Beyond the standard semester GPA, SLIIT also uses a Weighted Grade Point Average (WGPA) to determine final class honours. The WGPA calculation gives different weights to your academic performance in different years of study. This means that your grades in the final years of your degree have a greater impact on your final classification.
-          </p>
-          <p>The weighting factor assigned varies by faculty:</p>
-          <ul>
-            <li><strong>Faculty of Computing:</strong> 1st Year (0%), 2nd Year (20%), 3rd Year (30%), 4th Year (50%)</li>
-            <li><strong>School of Business:</strong> 1st Year (10%), 2nd Year (20%), 3rd Year (30%), 4th Year (40%)</li>
-            <li><strong>Faculty of Engineering:</strong> 1st Year (10%), 2nd Year (20%), 3rd Year (30%), 4th Year (40%)</li>
-          </ul>
-          <p>
-            This system emphasizes sustained academic improvement and rewards strong performance in higher-level courses. Our tool helps you calculate your unweighted GPA, which is the foundational metric for each semester&apos;s WGPA calculation.
-          </p>
-
-          <hr/>
-
-          <h2 id="faq">Frequently Asked Questions (FAQ) about the SLIIT GPA Calculator</h2>
-          
-          <h3>1. What is considered a good GPA at SLIIT?</h3>
-          <p>A &quot;good&quot; GPA is subjective, but generally, a cumulative GPA of 3.0 or higher is considered strong. To be eligible for academic honours like a First Class, students typically need a much higher GPA, often above 3.7, depending on the faculty&apos;s WGPA calculation.</p>
-
-          <h3>2. Is this an official SLIIT GPA Calculator?</h3>
-          <p>This is an unofficial tool designed to help students calculate their GPA based on the official SLIIT grading system. For your official GPA and academic transcript, you should always consult the Student System or contact the Registrar&apos;s Office at SLIIT.</p>
-
-          <h3>3. How do I find the number of credits for my subjects?</h3>
-          <p>The number of credit points for each module or unit of study is listed in your course handbook, which is usually available on the university&apos;s student portal (Courseweb). You can also find this information on your academic transcript or by making an enquiry with your Academic Advisor.</p>
-
-          <h3>4. Does this calculator handle both weighted and unweighted GPA?</h3>
-          <p>This tool is primarily an unweighted GPA calculator. It accurately computes your semester GPA (SGPA) and cumulative GPA (CGPA) based on your grades and credits. You can use these calculated semester GPAs to manually compute your Weighted GPA (WGPA) using the faculty-specific percentages.</p>
-
-          <h3>5. What do I do if I have an &apos;Incomplete&apos; grade?</h3>
-          <p>An &apos;Incomplete&apos; (I) grade is temporary and does not have a grade point value, so it is not included in the GPA calculation until a final letter grade is assigned. Once your professor submits the final grade, you can add it to the calculator to update your academic performance score.</p>
-          
-          <h3>6. How are &apos;Pass&apos;/&apos;Fail&apos; courses treated in the GPA calculation?</h3>
-          <p>Courses graded on a Pass/Fail basis are typically not included in the GPA calculation. While a &apos;Pass&apos; grade earns you the credits for the course, it does not affect your grade point average. A &apos;Fail&apos; grade also does not affect the GPA but results in no credits earned.</p>
-          
-          <h3>7. Can I use this calculator for high school or other colleges?</h3>
-          <p>This calculator is specifically calibrated for the SLIIT grading scale. While the basic formula is similar, other institutions, high schools, or public schools may use different grading scales (e.g., a 5.0 scale for AP/IB classes). It is always best to use a calculator designed for your specific school&apos;s system.</p>
-
-          <h3>8. What is the difference between GPA, CGPA, and SGPA?</h3>
-          <p>SGPA (Semester Grade Point Average) is your GPA for a single semester. GPA can refer to either SGPA or CGPA. CGPA (Cumulative Grade Point Average) is the overall GPA for all the semesters you have completed so far in your academic program.</p>
-          
-          <h3>9. How can regular class attendance and better study habits help my GPA?</h3>
-          <p>Regular class attendance ensures you don&apos;t miss key information and can actively participate in discussions. Effective study habits, such as consistent review, time management, and utilizing academic resources like the library and writing centres, directly contribute to better marks on assessments and exams, which in turn raises your course grade and overall GPA.</p>
-          
-          <h3>10. Where can I find official support for my grades at SLIIT?</h3>
-          <p>For any official enquiry about your grades, academic transcript, or GPA calculation, you should contact SLIIT&apos;s Academic Advising or the Registrar&apos;s Office. They are the primary sources for official results and academic support.</p>
+  {/* Main Content Cards */}
+  <div className="grid lg:grid-cols-2 gap-8 mb-12">
+    
+    {/* Introduction Card */}
+    <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-blue-100">
+      <div className="flex items-start gap-4 mb-6">
+        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0">
+          <span className="text-white text-xl">🎯</span>
         </div>
+        <div>
+          <h3 className="text-xl font-bold text-slate-800 mb-2">Academic Journey Navigation</h3>
+          <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded"></div>
+        </div>
+      </div>
+      <p className="text-slate-600 leading-relaxed">
+        Navigating your academic journey at the Sri Lanka Institute of Information Technology (SLIIT) requires a clear understanding of your performance. Our SLIIT GPA Calculator is a vital tool designed to help you instantly calculate your Grade Point Average. By simply entering your course grades and credit points, you can get an accurate assessment of your current academic standing, track your semester GPA, and plan effectively for future scholarships and graduate programs.
+      </p>
+    </div>
+
+    {/* Performance Impact Card */}
+    <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 sm:p-8 shadow-lg border border-green-200">
+      <div className="flex items-start gap-4 mb-6">
+        <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
+          <span className="text-white text-xl">📈</span>
+        </div>
+        <div>
+          <h3 className="text-xl font-bold text-slate-800 mb-2">Academic Performance Impact</h3>
+          <div className="w-16 h-1 bg-gradient-to-r from-green-500 to-emerald-500 rounded"></div>
+        </div>
+      </div>
+      <p className="text-slate-600 leading-relaxed mb-4">
+        Understanding your Grade Point Average (GPA) is more than just a number; it's a key indicator of your academic performance at SLIIT. Your GPA plays a critical role in your eligibility for honours, scholarships, and even future employment opportunities.
+      </p>
+      <div className="flex items-center gap-2 text-sm text-green-700 bg-green-100 px-3 py-2 rounded-lg">
+        <span>💡</span>
+        <span className="font-medium">Track progress • Make informed decisions • Boost your score</span>
+      </div>
+    </div>
+  </div>
+
+  {/* Key Concepts Section */}
+  <div className="mb-12">
+    <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 text-center mb-8">
+      Key Concepts & Calculations
+    </h2>
+    
+    <div className="grid md:grid-cols-2 gap-8">
+      
+      {/* What is GPA Card */}
+      <div className="bg-white rounded-2xl p-6 shadow-lg border border-purple-100">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+            <span className="text-purple-600">🤔</span>
+          </div>
+          <h3 className="text-xl font-bold text-slate-800">What is a Grade Point Average?</h3>
+        </div>
+        <p className="text-slate-600 leading-relaxed mb-4">
+          A Grade Point Average is a standard metric used to measure a student's academic achievement over a specific period, such as a semester or an entire degree program. Each letter grade you receive for a course corresponds to a numerical grade point.
+        </p>
+        <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-400">
+          <p className="text-sm text-slate-600">
+            <strong>Key Point:</strong> GPA provides a comprehensive summary of your overall performance, making it easier for institutions and employers to assess your capabilities.
+          </p>
+        </div>
+      </div>
+
+      {/* How GPA is Calculated Card */}
+      <div className="bg-white rounded-2xl p-6 shadow-lg border border-cyan-100">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-8 h-8 bg-cyan-100 rounded-lg flex items-center justify-center">
+            <span className="text-cyan-600">🧮</span>
+          </div>
+          <h3 className="text-xl font-bold text-slate-800">How is Your GPA Calculated?</h3>
+        </div>
+        <p className="text-slate-600 leading-relaxed mb-4">
+          Calculating your GPA at SLIIT follows a straightforward formula. First, convert each letter grade to its corresponding grade point value, then multiply by credit hours.
+        </p>
+        <div className="bg-cyan-50 p-4 rounded-lg border border-cyan-200 mb-4">
+          <div className="text-center">
+            <div className="text-sm text-cyan-700 font-medium mb-2">Formula</div>
+            <div className="text-lg font-bold text-cyan-800 font-mono">
+              GPA = Σ (Grade Points × Credits) ÷ Total Credits
+            </div>
+          </div>
+        </div>
+        <p className="text-sm text-slate-600">
+          Our tool automates this entire process - just enter your grades and credits!
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Enhanced Grading Scale Table */}
+  <div className="mb-12">
+    <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-blue-100">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center">
+          <span className="text-white text-lg">📋</span>
+        </div>
+        <div>
+          <h3 className="text-xl sm:text-2xl font-bold text-slate-800">Official SLIIT Grading Scale</h3>
+          <p className="text-slate-600 text-sm mt-1">12-grade system with corresponding GPA values</p>
+        </div>
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse bg-gradient-to-r from-slate-50 to-blue-50 rounded-xl overflow-hidden">
+          <thead>
+            <tr className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+              <th className="text-left py-4 px-6 font-semibold">Grade</th>
+              <th className="text-center py-4 px-6 font-semibold">Grade Point</th>
+              <th className="text-center py-4 px-6 font-semibold">Marks Range</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { grade: "A+", gpa: "4.0", range: "90-100", color: "text-green-600" },
+              { grade: "A", gpa: "4.0", range: "80-89", color: "text-green-600" },
+              { grade: "A-", gpa: "3.7", range: "75-79", color: "text-green-500" },
+              { grade: "B+", gpa: "3.3", range: "70-74", color: "text-blue-600" },
+              { grade: "B", gpa: "3.0", range: "65-69", color: "text-blue-600" },
+              { grade: "B-", gpa: "2.7", range: "60-64", color: "text-blue-500" },
+              { grade: "C+", gpa: "2.3", range: "55-59", color: "text-yellow-600" },
+              { grade: "C", gpa: "2.0", range: "45-54", color: "text-yellow-600" },
+              { grade: "C-", gpa: "1.7", range: "40-44", color: "text-orange-500" },
+              { grade: "D+", gpa: "1.3", range: "35-39", color: "text-red-500" },
+              { grade: "D", gpa: "1.0", range: "30-34", color: "text-red-500" },
+              { grade: "E", gpa: "0.0", range: "0-29", color: "text-red-600" }
+            ].map((row, index) => (
+              <tr key={row.grade} className={`${index % 2 === 0 ? 'bg-white' : 'bg-slate-50'} hover:bg-blue-50 transition-colors`}>
+                <td className="py-3 px-6">
+                  <span className={`font-bold text-lg ${row.color}`}>{row.grade}</span>
+                </td>
+                <td className="text-center py-3 px-6 font-semibold text-slate-700">{row.gpa}</td>
+                <td className="text-center py-3 px-6 text-slate-600">{row.range}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="mt-6 flex items-center gap-2 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
+        <span className="text-green-600 text-lg">✅</span>
+        <p className="text-green-700 font-medium">
+          Pass Requirement: Minimum "C" grade (2.0 GPA) required for module completion
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* WGPA Information Card */}
+  <div className="mb-12">
+    <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 sm:p-8 shadow-lg border border-indigo-200">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center">
+          <span className="text-white text-lg">⚖️</span>
+        </div>
+        <div>
+          <h3 className="text-xl sm:text-2xl font-bold text-slate-800">Weighted GPA (WGPA) at SLIIT</h3>
+          <p className="text-slate-600 text-sm mt-1">How different academic years impact your final classification</p>
+        </div>
+      </div>
+
+      <p className="text-slate-600 leading-relaxed mb-6">
+        Beyond the standard semester GPA, SLIIT uses a Weighted Grade Point Average (WGPA) to determine final class honours. The WGPA gives different weights to your academic performance in different years of study.
+      </p>
+
+      <div className="grid sm:grid-cols-3 gap-6">
+        {[
+          { faculty: "Faculty of Computing", weights: ["1st: 0%", "2nd: 20%", "3rd: 30%", "4th: 50%"], color: "blue" },
+          { faculty: "School of Business", weights: ["1st: 10%", "2nd: 20%", "3rd: 30%", "4th: 40%"], color: "green" },
+          { faculty: "Faculty of Engineering", weights: ["1st: 10%", "2nd: 20%", "3rd: 30%", "4th: 40%"], color: "purple" }
+        ].map((item, index) => (
+          <div key={index} className="bg-white p-4 rounded-xl border border-slate-200">
+            <h4 className={`font-bold mb-3 text-${item.color}-600`}>{item.faculty}</h4>
+            <div className="space-y-2">
+              {item.weights.map((weight, i) => (
+                <div key={i} className="flex justify-between text-sm">
+                  <span className="text-slate-600">{weight.split(':')[0]} Year</span>
+                  <span className={`font-semibold text-${item.color}-600`}>{weight.split(':')[1]}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-6 p-4 bg-white rounded-lg border border-indigo-200">
+        <p className="text-sm text-slate-600">
+          <strong>Important:</strong> This system emphasizes sustained academic improvement and rewards strong performance in higher-level courses. Our tool helps you calculate your unweighted GPA, which forms the foundation for WGPA calculations.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Enhanced FAQ Section */}
+  <div className="mb-12">
+    <div className="text-center mb-8">
+      <div className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-100 rounded-full border border-yellow-200 mb-4">
+        <span className="text-yellow-600">❓</span>
+        <span className="text-sm font-semibold text-yellow-700">FAQ</span>
+      </div>
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">
+        Frequently Asked Questions
+      </h2>
+      <p className="text-slate-600">Everything you need to know about GPA calculations at SLIIT</p>
+    </div>
+
+    <div className="space-y-4">
+      {[
+        {
+          question: "What is considered a good GPA at SLIIT?",
+          answer: "A 'good' GPA is subjective, but generally, a cumulative GPA of 3.0 or higher is considered strong. To be eligible for academic honours like a First Class, students typically need a much higher GPA, often above 3.7, depending on the faculty's WGPA calculation.",
+          icon: "🏆"
+        },
+        {
+          question: "Is this an official SLIIT GPA Calculator?",
+          answer: "This is an unofficial tool designed to help students calculate their GPA based on the official SLIIT grading system. For your official GPA and academic transcript, you should always consult the Student System or contact the Registrar's Office at SLIIT.",
+          icon: "🏢"
+        },
+        {
+          question: "How do I find the number of credits for my subjects?",
+          answer: "The number of credit points for each module or unit of study is listed in your course handbook, which is usually available on the university's student portal (Courseweb). You can also find this information on your academic transcript or by making an enquiry with your Academic Advisor.",
+          icon: "📖"
+        },
+        {
+          question: "Does this calculator handle both weighted and unweighted GPA?",
+          answer: "This tool is primarily an unweighted GPA calculator. It accurately computes your semester GPA (SGPA) and cumulative GPA (CGPA) based on your grades and credits. You can use these calculated semester GPAs to manually compute your Weighted GPA (WGPA) using the faculty-specific percentages.",
+          icon: "⚖️"
+        },
+        {
+          question: "What do I do if I have an 'Incomplete' grade?",
+          answer: "An 'Incomplete' (I) grade is temporary and does not have a grade point value, so it is not included in the GPA calculation until a final letter grade is assigned. Once your professor submits the final grade, you can add it to the calculator to update your academic performance score.",
+          icon: "⏳"
+        }
+      ].map((faq, index) => (
+        <details key={index} className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
+          <summary className="p-6 cursor-pointer hover:bg-slate-50 transition-colors">
+            <div className="flex items-start gap-4">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <span>{faq.icon}</span>
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-slate-800 group-open:text-blue-600 transition-colors">
+                  {faq.question}
+                </h3>
+              </div>
+              <div className="w-6 h-6 flex items-center justify-center">
+                <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+              </div>
+            </div>
+          </summary>
+          <div className="px-6 pb-6">
+            <div className="pl-12">
+              <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
+            </div>
+          </div>
+        </details>
+      ))}
+
+      {/* Show more FAQs button */}
+      <details className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-200">
+        <summary className="p-6 cursor-pointer hover:bg-blue-100 transition-colors text-center">
+          <span className="text-blue-600 font-semibold">View 5 More Questions →</span>
+        </summary>
+        <div className="px-6 pb-6 space-y-4">
+          {[
+            {
+              question: "How are 'Pass'/'Fail' courses treated in the GPA calculation?",
+              answer: "Courses graded on a Pass/Fail basis are typically not included in the GPA calculation. While a 'Pass' grade earns you the credits for the course, it does not affect your grade point average.",
+              icon: "✅"
+            },
+            {
+              question: "Can I use this calculator for high school or other colleges?",
+              answer: "This calculator is specifically calibrated for the SLIIT grading scale. While the basic formula is similar, other institutions may use different grading scales. It is always best to use a calculator designed for your specific school's system.",
+              icon: "🏫"
+            },
+            {
+              question: "What is the difference between GPA, CGPA, and SGPA?",
+              answer: "SGPA (Semester Grade Point Average) is your GPA for a single semester. GPA can refer to either SGPA or CGPA. CGPA (Cumulative Grade Point Average) is the overall GPA for all semesters you have completed so far.",
+              icon: "📊"
+            },
+            {
+              question: "How can regular class attendance and better study habits help my GPA?",
+              answer: "Regular class attendance ensures you don't miss key information and can actively participate in discussions. Effective study habits, such as consistent review and time management, directly contribute to better marks on assessments and exams.",
+              icon: "📚"
+            },
+            {
+              question: "Where can I find official support for my grades at SLIIT?",
+              answer: "For any official enquiry about your grades, academic transcript, or GPA calculation, you should contact SLIIT's Academic Advising or the Registrar's Office. They are the primary sources for official results and academic support.",
+              icon: "🏢"
+            }
+          ].map((faq, index) => (
+            <div key={index} className="bg-white rounded-lg p-4 border border-blue-200">
+              <div className="flex items-start gap-3 mb-3">
+                <span className="text-lg">{faq.icon}</span>
+                <h4 className="font-semibold text-slate-800">{faq.question}</h4>
+              </div>
+              <p className="text-slate-600 text-sm leading-relaxed pl-6">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+
         
         {/* JSON-LD Schema - Keep exactly as it is */}
         <script

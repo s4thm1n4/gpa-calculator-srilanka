@@ -1,0 +1,140 @@
+/* Complete Design System - Single Theme */
+:root {
+  /* Brand Colors - Your Current Blue/Cyan Theme */
+  --primary-blue: #2563eb;
+  --primary-cyan: #06b6d4;
+  --primary-teal: #14b8a6;
+  --accent-purple: #7c3aed;
+  --accent-indigo: #4f46e5;
+
+  /* Status Colors */
+  --success-green: #10b981;
+  --warning-amber: #f59e0b;
+  --danger-red: #ef4444;
+  --info-cyan: #06b6d4;
+
+  /* Neutral Palette */
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --white: #ffffff;
+
+  /* Gradients - Used throughout all calculators */
+  --hero-gradient: linear-gradient(to right, var(--primary-blue), var(--primary-cyan), var(--primary-teal));
+  --card-gradient: linear-gradient(to bottom right, #eff6ff, var(--white), #ecfeff);
+  --header-gradient: linear-gradient(to right, var(--slate-800), var(--primary-blue));
+  --button-gradient: linear-gradient(to right, var(--primary-cyan), var(--primary-blue));
+
+  /* Typography */
+  --font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --text-6xl: 3.75rem;
+  --text-5xl: 3rem;
+  --text-3xl: 1.875rem;
+  --text-xl: 1.25rem;
+  --text-lg: 1.125rem;
+  --text-base: 1rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+
+  /* Font Weights */
+  --font-light: 300;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  /* Spacing Scale */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-standard: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* Base Typography Classes */
+.text-hero {
+  font-size: var(--text-6xl);
+  font-weight: var(--font-bold);
+  line-height: 1.1;
+}
+
+.text-title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  line-height: 1.2;
+}
+
+.text-subtitle {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  line-height: 1.3;
+}
+
+.text-body {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: 1.5;
+}
+
+.text-caption {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  line-height: 1.4;
+}
+:root {
+  /* Mobile-specific spacing */
+  --mobile-padding: 1rem;
+  --mobile-section-gap: 2rem;
+  --mobile-card-padding: 1.5rem;
+  
+  /* Mobile typography scale */
+  --mobile-hero: 2.5rem;
+  --mobile-title: 1.75rem;
+  --mobile-subtitle: 1.25rem;
+  
+  /* Mobile breakpoints */
+  --mobile: 480px;
+  --tablet: 768px;
+  --desktop: 1024px;
+}
+
+/* Mobile-first responsive utilities */
+@media (max-width: 480px) {
+  .mobile-stack {
+    flex-direction: column;
+    gap: var(--mobile-section-gap);
+  }
+  
+  .mobile-full-width {
+    width: 100%;
+    margin: 0;
+  }
+  
+  .mobile-text-center {
+    text-align: center;
+  }
+}
