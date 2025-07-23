@@ -21,9 +21,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: {
     template: '%s | GPA Calculator Sri Lanka',
-    default: 'GPA Calculator Sri Lanka',
+    default: 'GPA Calculator Sri Lanka | Calculate Your University GPA',
   },
-  description: 'The most accurate and easy-to-use GPA and WGPA calculators for Sri Lankan university students.',
+  description: 'The 100% FREE, most accurate and easy-to-use GPA and WGPA calculators for Sri Lankan university students.',
   verification: {
     google: 'TzQ2i3TFMmJ0SpI81gb1_4bhYnI4D7H6I5Ad-S8aeTc',
   },
