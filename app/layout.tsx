@@ -4,6 +4,8 @@ import "./globals.css";
 import "./design-system.css";
 import "./components/calculator.css";
 import "./components/forms.css";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 
 const geistSans = Geist({
@@ -35,7 +37,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
+        <Header />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
