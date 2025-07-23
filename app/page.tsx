@@ -212,9 +212,9 @@ const HomePage: FC = () => {
                   GPA Calculator<br />
                   <span className="text-cyan-200">Sri Lanka</span>
                 </h1>
-                <p className="text-cyan-100 text-lg sm:text-xl mt-2 font-medium">
+                <h2 className="text-cyan-100 text-lg sm:text-xl mt-2 font-medium">
                   Accurate University GPA Calculator for All Sri Lankan Students
-                </p>
+                </h2>
               </div>
             </div>
             

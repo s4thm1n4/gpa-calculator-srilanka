@@ -13,9 +13,7 @@ const Header = () => {
               <h1 className="text-xl font-bold text-slate-800">GPA Calculator Sri Lanka</h1>
               <p className="text-xs text-slate-500">Accurate GPA & CGPA Calculation</p>
             </div>
-            <div className="sm:hidden">
-              <h1 className="text-lg font-bold text-slate-800">GPA Calc LK</h1>
-            </div>
+            
           </div>
           
           <div className="flex items-center gap-4">
