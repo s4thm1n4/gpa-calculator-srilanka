@@ -743,7 +743,8 @@ type CalculatorUIProps = {
 };
 
 // Enhanced Circular Progress Component - BIGGER SIZE
-const CircularGPAMeter: FC<{ gpa: number; size?: number }> = ({ gpa, size = 160 }) => {
+// Enhanced Circular Progress Component - PROPERLY SIZED
+const CircularGPAMeter: FC<{ gpa: number; size?: number }> = ({ gpa, size = 140 }) => {
   const radius = (size - 40) / 2;
   const circumference = 2 * Math.PI * radius;
   const progress = (gpa / 4.0) * 100;
@@ -807,13 +808,14 @@ const CircularGPAMeter: FC<{ gpa: number; size?: number }> = ({ gpa, size = 160 
         />
       </svg>
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <div className={`text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r ${getGpaGradient(gpa)} bg-clip-text text-transparent`}>
+           <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div className={`text-2xl sm:text-3xl font-bold bg-gradient-to-r ${getGpaGradient(gpa)} bg-clip-text text-transparent`}>
           {gpa.toFixed(2)}
         </div>
-        <div className="text-sm text-slate-500 mt-2 font-medium">CGPA</div>
-        <div className="text-sm text-slate-400 hidden sm:block">of 4.0</div>
+        <div className="text-xs text-slate-500 mt-1 font-medium">GPA</div>
+        <div className="text-xs text-slate-400">of 4.0</div>
       </div>
+
     </div>
   );
 };
@@ -1010,7 +1012,7 @@ const CalculatorUI: FC<CalculatorUIProps> = ({ slug }) => {
               </div>
             </div>
             <p className="text-cyan-50 max-w-3xl mx-auto text-sm sm:text-base lg:text-lg leading-relaxed font-light px-4 sm:px-0">
-              Calculate your CGPA with precision using official curriculum data. Select your faculty, syllabus, and semester for pre-loaded modules.
+              Calculate your GPA with precision using official curriculum data. Select your faculty, syllabus, and semester for pre-loaded modules.
             </p>
             <Link href="/" className="inline-flex items-center gap-2 mt-4 sm:mt-6 px-4 sm:px-6 py-2 sm:py-3 bg-white/20 text-white text-sm sm:text-base rounded-lg sm:rounded-xl hover:bg-white/30 transition-all duration-300 backdrop-blur-md border border-white/30">
               <span>←</span> <span className="hidden sm:inline">Back to all universities</span><span className="sm:hidden">Back</span>
@@ -1564,7 +1566,7 @@ const CalculatorUI: FC<CalculatorUIProps> = ({ slug }) => {
                   </div>
                 )}
 
-                {/* Results Section */}
+                              {/* Enhanced Results Section */}
                 <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl sm:rounded-2xl p-6 sm:p-8 border border-blue-200">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
@@ -1573,42 +1575,67 @@ const CalculatorUI: FC<CalculatorUIProps> = ({ slug }) => {
                     <h3 className="text-lg sm:text-xl font-bold text-slate-700">Calculation Results</h3>
                   </div>
                   
-                  <div className="flex flex-col sm:grid sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
-                    <div className="text-center p-4 sm:p-6 bg-white rounded-lg sm:rounded-xl shadow-md border border-blue-100 hover:shadow-lg transition-shadow duration-300">
-                      <div className="text-2xl sm:text-3xl font-bold text-blue-600">{namedCourses.length}</div>
-                      <div className="text-xs sm:text-sm text-slate-600 font-medium mt-1">Total Modules</div>
-                    </div>
-                    <div className="text-center p-4 sm:p-6 bg-white rounded-lg sm:rounded-xl shadow-md border border-blue-100 hover:shadow-lg transition-shadow duration-300">
-                      <div className="text-2xl sm:text-3xl font-bold text-green-600">{totalCredits}</div>
-                      <div className="text-xs sm:text-sm text-slate-600 font-medium mt-1">Total Credits</div>
-                    </div>
-                    <div className="flex items-center justify-center p-4 sm:p-6 bg-white rounded-lg sm:rounded-xl shadow-md border border-blue-100 hover:shadow-lg transition-shadow duration-300">
-                      <CircularGPAMeter gpa={calculatedGpa} size={140} />
+                  {/* Main GPA Display Card */}
+                  <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-blue-100 mb-6">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+                      
+                      {/* GPA Meter */}
+                      <div className="flex-shrink-0">
+                        <CircularGPAMeter gpa={calculatedGpa} size={140} />
+                      </div>
+                      
+                      {/* Stats Grid */}
+                      <div className="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-4 w-full">
+                        <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200">
+                          <div className="text-2xl font-bold text-blue-600">{namedCourses.length}</div>
+                          <div className="text-xs text-blue-700 font-medium mt-1">Modules</div>
+                        </div>
+                        <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200">
+                          <div className="text-2xl font-bold text-green-600">{totalCredits}</div>
+                          <div className="text-xs text-green-700 font-medium mt-1">Credits</div>
+                        </div>
+                        <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl border border-purple-200">
+                          <div className="text-2xl font-bold text-purple-600">{((calculatedGpa / 4.0) * 100).toFixed(0)}%</div>
+                          <div className="text-xs text-purple-700 font-medium mt-1">Percentage</div>
+                        </div>
+                        <div className="text-center p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl border border-orange-200">
+                          <div className="text-2xl font-bold text-orange-600">{selectedSyllabus}</div>
+                          <div className="text-xs text-orange-700 font-medium mt-1">Syllabus</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="text-center p-6 sm:p-8 bg-white rounded-xl sm:rounded-2xl border-l-4 border-cyan-500 shadow-md">
-                    <div className="text-base sm:text-lg text-slate-600 mb-2 sm:mb-3 font-medium">Academic Status</div>
-                    <div className={`text-xl sm:text-2xl lg:text-3xl font-bold ${getGpaColor(calculatedGpa)} mb-2 sm:mb-3`}>
-                      {getGpaStatus(calculatedGpa)}
-                    </div>
-                    <div className="text-sm text-slate-500 flex items-center justify-center gap-2 flex-wrap">
-                      <span className={calculatedGpa >= 2.0 ? 'text-green-600' : 'text-red-600'}>
-                        {calculatedGpa >= 2.0 ? '✅' : '⚠️'}
-                      </span>
-                      <span className="text-xs sm:text-sm">
-                        {calculatedGpa >= 2.0 ? 'Meeting graduation requirements' : 'Below minimum passing grade'}
-                      </span>
+                  {/* Academic Status Card */}
+                  <div className="bg-white rounded-xl p-6 border-l-4 border-cyan-500 shadow-md">
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                      <div className="text-center sm:text-left">
+                        <div className="text-sm text-slate-600 mb-1">Academic Status</div>
+                        <div className={`text-xl sm:text-2xl font-bold ${getGpaColor(calculatedGpa)}`}>
+                          {getGpaStatus(calculatedGpa)}
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-3 text-sm">
+                        <span className={calculatedGpa >= 2.0 ? 'text-green-600' : 'text-red-600'}>
+                          {calculatedGpa >= 2.0 ? '✅' : '⚠️'}
+                        </span>
+                        <span className="text-slate-600">
+                          {calculatedGpa >= 2.0 ? 'Meeting graduation requirements' : 'Below minimum passing grade'}
+                        </span>
+                      </div>
                     </div>
                     
                     {/* WGPA Information */}
-                    <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                      <div className="text-sm text-blue-700">
-                        <strong>Faculty of Computing WGPA:</strong> Y1 (0%), Y2 (20%), Y3 (30%), Y4 (50%) • Using {selectedSyllabus} Syllabus
+                    <div className="mt-4 pt-4 border-t border-slate-200">
+                      <div className="text-sm text-slate-600 text-center">
+                        <strong className="text-blue-700">Faculty of Computing WGPA Weightings:</strong> 
+                        <span className="ml-2">Y1 (0%) • Y2 (20%) • Y3 (30%) • Y4 (50%)</span>
                       </div>
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
@@ -1646,7 +1673,7 @@ const CalculatorUI: FC<CalculatorUIProps> = ({ slug }) => {
                       Pass Requirement
                     </div>
                     <div className="text-xs sm:text-sm text-slate-600">
-                      Minimum "C" grade (2.0 GPA) required. 80% attendance mandatory.
+                      Minimum &quot;C&quot; grade (2.0 GPA) required. 80% attendance mandatory.
                     </div>
                   </div>
                 </div>
