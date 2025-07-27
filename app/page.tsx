@@ -30,6 +30,16 @@ const universities = [
     features: ["9+ Programs", "Both Syllabuses", "Pre-loaded Modules"],
     status: "available"
   },
+    {
+    name: "OUSL",
+    fullName: "Open University of Sri Lanka",
+    slug: "ousl",
+    logo: "📖",
+    color: "green",
+    description: "A general GPA calculator for OUSL students.",
+    features: ["All Faculties", "SGPA & CGPA", "Flexible"],
+    status: "available"
+  },
   {
     name: "University of Colombo",
     fullName: "University of Colombo",
